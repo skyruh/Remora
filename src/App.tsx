@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useVpsStore, VpsProfile } from './store/vpsStore';
+import { Terminal } from './components/Terminal';
 
 function App() {
   const { profiles, activeProfileId, addProfile, removeProfile, setActiveProfile } = useVpsStore();
@@ -122,9 +123,8 @@ function App() {
             </form>
           </div>
         ) : activeProfileId ? (
-          <div className="flex-1 flex items-center justify-center text-neutral-500">
-            {/* Terminal Pane will go here */}
-            Terminal view for {profiles.find(p => p.id === activeProfileId)?.name} goes here.
+          <div className="flex-1 flex items-center justify-center text-neutral-500 overflow-hidden">
+            <Terminal profileId={activeProfileId} />
           </div>
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-neutral-600">
