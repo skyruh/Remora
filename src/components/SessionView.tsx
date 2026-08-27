@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSessionStore, Tab } from '../store/sessionStore';
 import { Terminal } from './Terminal';
 import { FileExplorer } from './FileExplorer';
 import { Editor } from './Editor';
+import { GitPanel } from './GitPanel';
+import { PortForward } from './PortForward';
 
 interface SessionViewProps {
   vpsId: string;
@@ -10,6 +12,7 @@ interface SessionViewProps {
 
 export function SessionView({ vpsId }: SessionViewProps) {
   const { sessions, initSession, addTab, removeTab, setActiveTab } = useSessionStore();
+  const [activeRightPanel, setActiveRightPanel] = useState<'none' | 'git' | 'ports'>('none');
 
   useEffect(() => {
     initSession(vpsId);
@@ -33,7 +36,7 @@ export function SessionView({ vpsId }: SessionViewProps) {
       
       <div className="flex-1 flex flex-col min-w-0">
         {/* Tab Bar */}
-        <div className="flex bg-neutral-900 border-b border-neutral-800 overflow-x-auto no-scrollbar">
+        <div className="flex bg-neutral-900 border-b border-neutral-800 overflow-x-auto no-scrollbar items-center">
           {session.tabs.map((tab) => (
             <div 
               key={tab.id}
@@ -63,10 +66,23 @@ export function SessionView({ vpsId }: SessionViewProps) {
           </button>
           <button 
             onClick={handleAddEditor}
-            className="px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white"
+            className="px-3 py-2 text-neutral-400 hover:bg-neutral-800 hover:text-white border-r border-neutral-800"
             title="New Editor"
           >
             + Edit
+          </button>
+          <div className="flex-1"></div>
+          <button 
+            onClick={() => setActiveRightPanel(p => p === 'git' ? 'none' : 'git')}
+            className={`px-4 py-2 text-sm border-l border-neutral-800 ${activeRightPanel === 'git' ? 'text-white bg-neutral-800' : 'text-neutral-400 hover:bg-neutral-800'}`}
+          >
+            Git
+          </button>
+          <button 
+            onClick={() => setActiveRightPanel(p => p === 'ports' ? 'none' : 'ports')}
+            className={`px-4 py-2 text-sm border-l border-neutral-800 ${activeRightPanel === 'ports' ? 'text-white bg-neutral-800' : 'text-neutral-400 hover:bg-neutral-800'}`}
+          >
+            Ports
           </button>
         </div>
 
@@ -83,6 +99,10 @@ export function SessionView({ vpsId }: SessionViewProps) {
           ))}
         </div>
       </div>
+      
+      {/* Right Panels */}
+      {activeRightPanel === 'git' && <GitPanel vpsId={vpsId} />}
+      {activeRightPanel === 'ports' && <PortForward vpsId={vpsId} />}
     </div>
   );
 }
