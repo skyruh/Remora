@@ -5,6 +5,7 @@ import { FileExplorer } from './FileExplorer';
 import { Editor } from './Editor';
 import { GitPanel } from './GitPanel';
 import { PortForward } from './PortForward';
+import { DockerPanel } from './DockerPanel';
 
 interface SessionViewProps {
   vpsId: string;
@@ -12,7 +13,7 @@ interface SessionViewProps {
 
 export function SessionView({ vpsId }: SessionViewProps) {
   const { sessions, initSession, addTab, removeTab, setActiveTab } = useSessionStore();
-  const [activeRightPanel, setActiveRightPanel] = useState<'none' | 'git' | 'ports'>('none');
+  const [activeRightPanel, setActiveRightPanel] = useState<'none' | 'git' | 'ports' | 'docker'>('none');
 
   useEffect(() => {
     initSession(vpsId);
@@ -84,6 +85,12 @@ export function SessionView({ vpsId }: SessionViewProps) {
           >
             Ports
           </button>
+          <button 
+            onClick={() => setActiveRightPanel(p => p === 'docker' ? 'none' : 'docker')}
+            className={`px-4 py-2 text-sm border-l border-neutral-800 ${activeRightPanel === 'docker' ? 'text-white bg-neutral-800' : 'text-neutral-400 hover:bg-neutral-800'}`}
+          >
+            Docker
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -103,6 +110,7 @@ export function SessionView({ vpsId }: SessionViewProps) {
       {/* Right Panels */}
       {activeRightPanel === 'git' && <GitPanel vpsId={vpsId} />}
       {activeRightPanel === 'ports' && <PortForward vpsId={vpsId} />}
+      {activeRightPanel === 'docker' && <DockerPanel vpsId={vpsId} />}
     </div>
   );
 }
