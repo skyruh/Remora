@@ -36,8 +36,19 @@ export function Terminal({ profileId }: TerminalProps) {
     }
 
     term.writeln(`Connecting to profile ${profileId}...`);
-    term.writeln('Connection established. (Mock SSH session)');
-    term.write('user@remote:~$ ');
+    
+    // Invoke Tauri backend to start SSH connection
+    import('@tauri-apps/api/core').then(({ invoke }) => {
+      invoke<string>('connect_vps', { profileId })
+        .then((res) => {
+          term.writeln(`[Backend]: ${res}`);
+          term.writeln('Connection established. (Mock SSH session)');
+          term.write('user@remote:~$ ');
+        })
+        .catch((err) => {
+          term.writeln(`\x1b[31mConnection failed: ${err}\x1b[0m`);
+        });
+    });
 
     const onData = term.onData((data) => {
       // Echo data (mock behavior)
