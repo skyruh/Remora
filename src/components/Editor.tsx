@@ -4,7 +4,7 @@ interface EditorProps {
   vpsId: string;
 }
 
-export function Editor({ vpsId }: EditorProps) {
+export function Editor({ vpsId: _vpsId }: EditorProps) {
   const [content, setContent] = useState('// Remote file content goes here\n\nfunction hello() {\n  console.log("Hello from remote!");\n}');
 
   return (

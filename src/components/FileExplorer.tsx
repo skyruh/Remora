@@ -4,7 +4,7 @@ interface FileExplorerProps {
   vpsId: string;
 }
 
-export function FileExplorer({ vpsId }: FileExplorerProps) {
+export function FileExplorer({ vpsId: _vpsId }: FileExplorerProps) {
   const [files] = useState([
     { name: 'var', type: 'dir' },
     { name: 'etc', type: 'dir' },

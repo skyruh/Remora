@@ -4,7 +4,7 @@ interface PortForwardProps {
   vpsId: string;
 }
 
-export function PortForward({ vpsId }: PortForwardProps) {
+export function PortForward({ vpsId: _vpsId }: PortForwardProps) {
   const [forwards] = useState([
     { id: 1, name: 'Web Server', local: 8080, remote: 80 },
     { id: 2, name: 'Database', local: 5432, remote: 5432 }

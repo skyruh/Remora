@@ -4,7 +4,7 @@ interface GitPanelProps {
   vpsId: string;
 }
 
-export function GitPanel({ vpsId }: GitPanelProps) {
+export function GitPanel({ vpsId: _vpsId }: GitPanelProps) {
   const [commitMsg, setCommitMsg] = useState('');
 
   return (

@@ -1,32 +1,52 @@
-# React + TypeScript + Vite
+# Remora
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Remora is a modern, lightweight, multi-tabbed VPS management client built with Tauri, React, and TypeScript. It aims to provide a unified interface for server administration, combining terminal access, file management, and system telemetry into a single seamless experience.
 
-Currently, two official plugins are available:
+## Features (In Development)
+- **Multi-Tabbed Terminal**: Full-featured terminal interface using `xterm.js` and WebGL for high-performance rendering. Manage multiple sessions simultaneously.
+- **File Explorer & Editor**: Integrated remote file browsing and editing capabilities.
+- **Git Integration**: Built-in panel for staging, committing, and pushing changes directly on the remote server.
+- **Port Forwarding**: Easy management of SSH port forwards to preview remote services locally.
+- **Multi-VPS Dashboard**: Monitor CPU, memory, and disk usage across multiple servers from a unified dashboard.
+- **Docker Management**: Quickly view, start, stop, and manage Docker containers running on your VPS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technology Stack
+- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS v4, Zustand.
+- **Backend / Desktop Frame**: Tauri v2 (Rust).
+- **UI Components**: custom `shadcn/ui` components tailored for a terminal-first aesthetic.
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js (v20+)
+- Rust & Cargo (latest stable)
+- Tauri dependencies (see [Tauri documentation](https://v2.tauri.app/start/prerequisites/))
 
-## Expanding the Oxlint configuration
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/skyruh/Remora.git
+   cd Remora
+   ```
+2. Install frontend dependencies:
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Running in Development
+To start the application in development mode with hot-reloading:
+```bash
+npm run tauri dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Building for Production
+To build the standalone executable:
+```bash
+npm run tauri build
+```
+
+## Project Status
+Currently in the **UI Scaffolding phase**. The interface and state management have been mocked out to establish the UX flow, and we are preparing to integrate the real Rust-backed SSH/SFTP logic.
+
+## License
+MIT

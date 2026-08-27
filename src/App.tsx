@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useVpsStore, VpsProfile } from './store/vpsStore';
+import { useVpsStore, type VpsProfile } from './store/vpsStore';
 import { SessionView } from './components/SessionView';
 import { Dashboard } from './components/Dashboard';
 import { Settings } from './components/Settings';

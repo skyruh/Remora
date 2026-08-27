@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSessionStore, Tab } from '../store/sessionStore';
+import { useSessionStore } from '../store/sessionStore';
 import { Terminal } from './Terminal';
 import { FileExplorer } from './FileExplorer';
 import { Editor } from './Editor';

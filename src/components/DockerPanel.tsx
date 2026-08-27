@@ -4,7 +4,7 @@ interface DockerPanelProps {
   vpsId: string;
 }
 
-export function DockerPanel({ vpsId }: DockerPanelProps) {
+export function DockerPanel({ vpsId: _vpsId }: DockerPanelProps) {
   const [containers] = useState([
     { id: '1a2b3c4d', name: 'nginx-proxy', status: 'running', image: 'nginx:alpine' },
     { id: '5e6f7g8h', name: 'db-postgres', status: 'running', image: 'postgres:15' },
