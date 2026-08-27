@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useVpsStore, VpsProfile } from './store/vpsStore';
-import { Terminal } from './components/Terminal';
+import { SessionView } from './components/SessionView';
 
 function App() {
   const { profiles, activeProfileId, addProfile, removeProfile, setActiveProfile } = useVpsStore();
@@ -67,9 +67,9 @@ function App() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col bg-neutral-950">
+      <div className="flex-1 flex flex-col bg-neutral-950 overflow-hidden">
         {showAdd ? (
-          <div className="flex-1 p-8 max-w-md">
+          <div className="flex-1 p-8 max-w-md overflow-y-auto">
             <h3 className="text-xl mb-4 font-semibold">Add New VPS</h3>
             <form onSubmit={handleAdd} className="space-y-4">
               <div>
@@ -123,9 +123,7 @@ function App() {
             </form>
           </div>
         ) : activeProfileId ? (
-          <div className="flex-1 flex items-center justify-center text-neutral-500 overflow-hidden">
-            <Terminal profileId={activeProfileId} />
-          </div>
+          <SessionView vpsId={activeProfileId} />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-neutral-600">
             <div className="mb-4">
